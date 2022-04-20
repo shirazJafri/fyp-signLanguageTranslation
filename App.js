@@ -15,31 +15,38 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name = "Audio_Record"
-          component = {Audio_record}
-          options={{title:"                          SUNO", headerStyle: {
-            backgroundColor: '#f4511e',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          }
-          ,
-        }}
+          name="Audio_Record"
+          component={Audio_record}
+          options={{
+            title: "                       SUNO", headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+            },
+            headerTransparent: true,
+            headerShadowVisible: false,
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'italic',
+              fontSize: 25,
+            }
+            ,
+          }}
         />
-        <Stack.Screen name = "Video_Screen" component = {Video_screen}
-        options={{title:"", headerStyle: {
-          backgroundColor: '#000000',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },}}
+        <Stack.Screen name="Video_Screen" component={Video_screen}
+          options={{
+            title: "", headerStyle: {
+              backgroundColor: '#000000',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
         />
       </Stack.Navigator>
-    </NavigationContainer>  
+    </NavigationContainer>
   )
-  
+
 };
 
 

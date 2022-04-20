@@ -18,6 +18,8 @@ target 'try3' do
 
   pod 'react-native-video', :path => '../node_modules/react-native-video'
 
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
   target 'try3Tests' do
     inherit! :complete
     # Pods for testing
