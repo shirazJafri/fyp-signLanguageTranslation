@@ -70,7 +70,7 @@ return (
   
   <View style={styles.container} pointerEvents='none'>
         {playerFullScreen && <StatusBar hidden={true} />}
-        <YoutubePlayer
+        {/* <YoutubePlayer
           height={playerHeight}
           play={true}
 playList={['KyyNxUIS3bc','sui-V3uZH5c','KGUTsC4a-JI','1Koiu2Pjtnk','JZEzhdo8bPo','pdaU89B-2tE','1Koiu2Pjtnk']}
@@ -88,11 +88,11 @@ webViewProps={{
             console.log('ERROR > MediaPlayerBox > YoutubePlayer: ', error)
           }}
           forceAndroidAutoplay={Platform.OS === 'android'}
-        />
-{/* <Video source={{uri: "https://rawgit.com/mediaelement/mediaelement-files/master/big_buck_bunny.mp4"}}   // Can be a URL or a local file.
+        /> */}
+<Video source= {{uri: route.params.res}}   // Can be a URL or a local file.
           // Callback when video cannot be loaded
        style={styles.video} />
- <Text>{route.params.res}</Text> */}
+ <Text>{route.params.res}</Text>
 </View>)
 }
 const styles = StyleSheet.create({

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, Text, StyleSheet, SafeAreaView, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Voice from '@react-native-voice/voice';
+import axios from 'axios';
 // import SpeechToText from 'react-native-google-speech-to-text';
 
 // TODO: What to do with the module?
@@ -9,6 +10,7 @@ const Audio_record = ({navigation}) => {
 
   const [result, setResult] = useState('')
   const [isLoading, setLoading] = useState(false)
+  const [isTranslateLoading, setTranslateLoading] = useState(false)
   
   useEffect(() => {
     Voice.onSpeechStart = onSpeechStartHandler;
@@ -65,6 +67,27 @@ const Audio_record = ({navigation}) => {
   const clear = () =>{
     setResult("")
   }
+
+  translate = async (transcription) => {
+    setTranslateLoading(true)
+    await axios.post('http://98fd-182-255-48-81.ngrok.io/api/fixSentence', {
+      'sentence': transcription
+    })
+
+    .then(function (response) {
+      console.log(response.data)
+      if(response.data.status == 'success') {
+        setTranslateLoading(false)
+        console.log(response)
+        navigation.navigate('Video_Screen', {res:response.data.data.file_path})
+      }
+    })
+
+    .catch(function(error) {
+      setTranslateLoading(false)
+      console.log(error)
+    })
+  } 
 
 
   return (
@@ -126,12 +149,11 @@ const Audio_record = ({navigation}) => {
             padding: 8,
             borderRadius: 4
           }}
-          onPress={
-            () => navigation.navigate('Video_Screen',{res:result})
-          }
+          onPress={() => translate(result)}
         >
           <Text style={{ color: 'white', fontWeight: 'bold' }}>Translate</Text>
           </TouchableOpacity>
+          {isTranslateLoading == true && <ActivityIndicator size="large" color="red" />}
       </SafeAreaView>
     </View>
   );
