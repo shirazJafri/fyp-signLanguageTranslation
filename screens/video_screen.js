@@ -6,7 +6,6 @@ import Video from 'react-native-video';
 import YoutubePlayer from "react-native-youtube-iframe";
 import { useDimensions } from '@react-native-community/hooks'
 import Orientation from 'react-native-orientation-locker'
-import t from '../screens/t.mp4';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 import { Dimensions } from 'react-native';
 
@@ -79,26 +78,7 @@ const Video_screen = ({ navigation, route }) => {
 
     <View style={styles.container} pointerEvents='none'>
       {playerFullScreen && <StatusBar hidden={true} />}
-      {/* <YoutubePlayer
-          height={playerHeight}
-          play={true}
-playList={['KyyNxUIS3bc','sui-V3uZH5c','KGUTsC4a-JI','1Koiu2Pjtnk','JZEzhdo8bPo','pdaU89B-2tE','1Koiu2Pjtnk']}
-webViewProps={{
-  injectedJavaScript: `
-    var element = document.getElementsByClassName('container')[0];
-    element.style.position = 'unset';
-    true;
-  `,
-}}
-          initialPlayerParams={{
-            preventFullScreen: true,
-          }}
-          onError={(error) => {
-            console.log('ERROR > MediaPlayerBox > YoutubePlayer: ', error)
-          }}
-          forceAndroidAutoplay={Platform.OS === 'android'}
-        /> */}
-        {videoLoading==true && <ActivityIndicator style={{ padding: 20, width: screenHeight, height: screenWidth, alignSelf: 'center' }} size="large" color="#008080" />}
+      {videoLoading==true && <ActivityIndicator style={{ padding: 20, width: screenHeight, height: screenWidth, alignSelf: 'center' }} size="large" color="#008080" />}
       <Video source={{ uri: route.params.res }}   // Can be a URL or a local file.
         // Callback when video cannot be loaded
         style={styles.video} resizeMode="cover"
@@ -112,12 +92,12 @@ webViewProps={{
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   video: {
     alignSelf: 'center',
-    width: screenHeight,
-    height: screenWidth,
+    width: screenHeight - 150,
+    height: screenWidth + 100,
   },
   buttons: {
     flexDirection: 'row',
@@ -127,10 +107,3 @@ const styles = StyleSheet.create({
 });
 
 export default Video_screen;
-/* <YouTube
-apiKey='AIzaSyCixVUgTSSeOTaydqDa-AHwfjmOpqcJgpY'
-  videoId="eYnFA86XemA" // The YouTube video ID
-  play // control playback of video with true/false
-   // control whether the video should play in fullscreen or inline
-  style={{ alignSelf: 'stretch', height: 300 }}
-/> */

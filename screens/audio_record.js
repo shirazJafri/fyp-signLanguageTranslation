@@ -72,7 +72,7 @@ const Audio_record = ({ navigation }) => {
   const translate = (transcription) => {
     setTranslateLoading(true)
 
-    axios.post('http://3956-182-255-48-81.ngrok.io/api/fixSentence', {
+    axios.post('http://ebfe-182-255-48-81.ngrok.io/api/fixSentence', {
       sentence: transcription
     })
 
@@ -137,23 +137,6 @@ const Audio_record = ({ navigation }) => {
                 />
               </TouchableOpacity>}
           </View>
-
-          <TouchableOpacity
-            style={{
-              alignSelf: 'center',
-              marginTop: 24,
-              justifyContent: 'center',
-              borderColor: 'white',
-              width: 120,
-              height: 50,
-              backgroundColor: '#40e0d0',
-              padding: 8,
-              borderRadius: 50
-            }}
-            onPress={stopRecording}
-          >
-            <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20, alignSelf: 'center' }}>Stop</Text>
-          </TouchableOpacity>
 
           <TouchableOpacity
             style={{
