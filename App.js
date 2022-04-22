@@ -6,11 +6,18 @@ import Audio_record from './screens/audio_record';
 import Video_screen from './screens/video_screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import SplashScreen from  "react-native-splash-screen";
+
 
 // TODO: What to do with the module?
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+
+  React.useEffect(() => {
+    SplashScreen.hide();
+  });
+
   return (
     <NavigationContainer>
       <Stack.Navigator>

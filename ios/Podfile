@@ -20,6 +20,8 @@ target 'try3' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
   target 'try3Tests' do
     inherit! :complete
     # Pods for testing
