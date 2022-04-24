@@ -6,7 +6,8 @@ import Audio_record from './screens/audio_record';
 import Video_screen from './screens/video_screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SplashScreen from  "react-native-splash-screen";
+import SplashScreen from "react-native-splash-screen";
+import Help from './screens/help'
 
 
 // TODO: What to do with the module?
@@ -29,6 +30,9 @@ const App = () => {
               elevation: 0,
               shadowOpacity: 0,
             },
+            headerTitle: () => (
+              <Image source={require("./assets/logo2.png")} style= {{width: 400, height: 125, alignSelf: 'center'}} />
+            ),
             headerTransparent: true,
             headerShadowVisible: false,
             headerTintColor: '#fff',
@@ -39,15 +43,70 @@ const App = () => {
             ,
           }}
         />
-        <Stack.Screen name="Video_Screen" component={Video_screen}
+
+        <Stack.Screen name="Help" component={Help}
+
           options={{
-            title: "", headerStyle: {
-              backgroundColor: '#000000',
+            title: "",
+
+            headerBackVisible: false,
+            headerTitle: () => (
+              <Image source={require("./assets/logo2.png")} style={{ width: 400, height: 125, alignSelf: 'center' }} />
+            ),
+
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              alignSelf: 'center',
+              headerTitleAlign: 'center'
+
             },
+
+            headerTitleContainerStyle: { alignSelf: 'center', },
+
+            headerTransparent: true,
+            headerShadowVisible: false,
             headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold',
+              fontWeight: 'italic',
+              fontSize: 25,
+
+
+            }
+            ,
+
+          }}
+        />
+        <Stack.Screen name="Video_Screen" component={Video_screen}
+          options={{
+            title: "",
+
+            headerBackVisible: false,
+            headerTitle: () => (
+              <Image source={require("./assets/logo2.png")} style={{ width: 400, height: 125, alignSelf: 'flex-start'}} />
+            ),
+
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              alignSelf: 'center',
+              headerTitleAlign: 'center'
+
             },
+
+            headerTitleContainerStyle: { alignSelf: 'flex-start', },
+
+            headerTransparent: true,
+            headerShadowVisible: false,
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'italic',
+              fontSize: 25,
+              alignSelf: 'flex-start',
+
+            }
+            ,
+
           }}
         />
       </Stack.Navigator>

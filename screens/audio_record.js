@@ -4,6 +4,7 @@ import Voice from '@react-native-voice/voice';
 import axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient';
 // import SpeechToText from 'react-native-google-speech-to-text';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 // TODO: What to do with the module?
 
@@ -72,7 +73,7 @@ const Audio_record = ({ navigation }) => {
   const translate = (transcription) => {
     setTranslateLoading(true)
 
-    axios.post('http://ebfe-182-255-48-81.ngrok.io/api/fixSentence', {
+    axios.post('http://603e-182-255-48-81.ngrok.io/api/fixSentence', {
       sentence: transcription
     })
 
@@ -116,6 +117,26 @@ const Audio_record = ({ navigation }) => {
       <View style={styles.container}>
         <SafeAreaView>
           <Text style={styles.headingText}></Text>
+          <TouchableOpacity
+          style={{
+            alignSelf: 'flex-end',
+            marginTop: 24,
+            justifyContent: 'center',
+            borderColor: 'white',
+            width: 32,
+            height: 32,
+            backgroundColor: 'white',
+            padding: 8,
+            marginBottom: 18,
+            borderRadius: 50,
+            borderWidth: 1
+          }}
+          onPress={
+            () => navigation.navigate('Help')
+          }
+        >
+         <View style={styles.iconContainer}><Icon name="info" size={14} color = '#008080' /></View>   
+          </TouchableOpacity>
           <View style={styles.textInputStyle}>
             <TextInput
               value={result}
@@ -205,7 +226,14 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
     shadowOpacity: 0.4
-  }
+  },
+  iconContainer: {
+    alignItems: 'flex-start',
+    textAlign: 'center',
+    flexDirection: "row",
+    alignSelf: 'center'
+    
+  },
 });
 
 export default Audio_record;
