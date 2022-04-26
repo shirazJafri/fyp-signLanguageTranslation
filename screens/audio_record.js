@@ -5,6 +5,7 @@ import axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient';
 // import SpeechToText from 'react-native-google-speech-to-text';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 // TODO: What to do with the module?
 
@@ -13,6 +14,9 @@ const Audio_record = ({ navigation }) => {
   const [result, setResult] = useState('')
   const [isLoading, setLoading] = useState(false)
   const [isTranslateLoading, setTranslateLoading] = useState(false)
+  const [isEmptyAlert, setEmptyAlert] = useState(false);
+  const [isInvalidAlert, setInvalidAlert] = useState(false);
+  const [isErrorAlert, setErrorAlert] = useState(false);
 
   useEffect(() => {
     Voice.onSpeechStart = onSpeechStartHandler;
@@ -71,39 +75,64 @@ const Audio_record = ({ navigation }) => {
   }
 
   const translate = (transcription) => {
-    setTranslateLoading(true)
+    if (transcription) {
+      setTranslateLoading(true)
 
-    axios.post('http://603e-182-255-48-81.ngrok.io/api/fixSentence', {
-      sentence: transcription
-    })
-
-      .then(function (response) {
-        setTranslateLoading(false)
-        if (response.data.status == 'success') {
-          navigation.navigate('Video_Screen', { res: response.data.data.file_path })
-        }
-        else {
-          Alert.alert(
-            "Invalid Text",
-            "Do you wanna start over?",
-            [
-              {
-                text: "Cancel",
-                onPress: () => console.log("Cancel Pressed"),
-                style: "cancel"
-              },
-              { text: "OK", onPress: () => clear() }
-            ]
-          );
-        }
-
+      axios.post('http://fa70-182-255-48-81.ngrok.io/api/fixSentence', {
+        sentence: transcription
       })
 
-      .catch(function (error) {
-        setTranslateLoading(false)
-        console.log(error)
-      })
+        .then(function (response) {
+          setTranslateLoading(false)
+          if (response.data.status == 'success') {
+            clear();
+            navigation.navigate('Video_Screen', { res: response.data.data.file_path })
+          }
+          else {
+            // Alert.alert(
+            //   "Invalid Text",
+            //   "Do you wanna start over?",
+            //   [
+            //     {
+            //       text: "Cancel",
+            //       onPress: () => console.log("Cancel Pressed"),
+            //       style: "cancel"
+            //     },
+            //     { text: "OK", onPress: () => clear() }
+            //   ]
+            // );
+            setInvalidAlert(true)
+          }
+        })
 
+        .catch(function (error) {
+          setTranslateLoading(false)
+          // Alert.alert(
+          //   "Oops...",
+          //   "Something went wrong. Try again at a better time!",
+          //   [
+          //     { text: "OK" }
+          //   ]
+          // );
+          setErrorAlert(true)
+          console.log(error)
+        })
+    }
+    else {
+      // Alert.alert(
+      //   "Empty Text",
+      //   "Give us something to work with!",
+      //   [
+      //     { text: "Ok"}
+      //   ]
+      // );
+      setEmptyAlert(true)
+    }
+  }
+
+  const handleInvalidConfirm = () => {
+    clear();
+    setInvalidAlert(false);
   }
 
 
@@ -118,24 +147,24 @@ const Audio_record = ({ navigation }) => {
         <SafeAreaView>
           <Text style={styles.headingText}></Text>
           <TouchableOpacity
-          style={{
-            alignSelf: 'flex-end',
-            marginTop: 24,
-            justifyContent: 'center',
-            borderColor: 'white',
-            width: 32,
-            height: 32,
-            backgroundColor: 'white',
-            padding: 8,
-            marginBottom: 18,
-            borderRadius: 50,
-            borderWidth: 1
-          }}
-          onPress={
-            () => navigation.navigate('Help')
-          }
-        >
-         <View style={styles.iconContainer}><Icon name="info" size={14} color = '#008080' /></View>   
+            style={{
+              alignSelf: 'flex-end',
+              marginTop: 24,
+              justifyContent: 'center',
+              borderColor: 'white',
+              width: 32,
+              height: 32,
+              backgroundColor: 'white',
+              padding: 8,
+              marginBottom: 18,
+              borderRadius: 50,
+              borderWidth: 1
+            }}
+            onPress={
+              () => navigation.navigate('Help')
+            }
+          >
+            <View style={styles.iconContainer}><Icon name="info" size={14} color='#008080' /></View>
           </TouchableOpacity>
           <View style={styles.textInputStyle}>
             <TextInput
@@ -159,7 +188,7 @@ const Audio_record = ({ navigation }) => {
               </TouchableOpacity>}
           </View>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{
               alignSelf: 'center',
               marginTop: 24,
@@ -174,7 +203,8 @@ const Audio_record = ({ navigation }) => {
             onPress={clear}
           >
             <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20, alignSelf: 'center' }}>Clear</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+
           <TouchableOpacity
             style={{
               alignSelf: 'center',
@@ -183,7 +213,7 @@ const Audio_record = ({ navigation }) => {
               borderColor: 'white',
               width: 120,
               height: 50,
-              backgroundColor: '#008080',
+              backgroundColor: '#40e0d0',
               padding: 8,
               borderRadius: 50
             }}
@@ -194,8 +224,60 @@ const Audio_record = ({ navigation }) => {
             <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20, alignSelf: 'center' }}>Translate</Text>
           </TouchableOpacity>
           {isTranslateLoading == true && <ActivityIndicator style={{ padding: 20, width: 400, height: 200, alignSelf: 'center' }} size="large" color="#008080" />}
+
+          <AwesomeAlert
+            show={isEmptyAlert}
+            showProgress={false}
+            title="Empty Text!"
+            message="Give us something to work with!"
+            closeOnTouchOutside={true}
+            closeOnHardwareBackPress={false}
+            showConfirmButton={true}
+            confirmText="Sure!"
+            confirmButtonColor="#DD6B55"
+            onConfirmPressed={() => {
+              setEmptyAlert(false)
+            }}
+          />
+
+          <AwesomeAlert
+            show={isInvalidAlert}
+            showProgress={false}
+            title="Invalid Text!"
+            message="Do you wanna start over?"
+            closeOnTouchOutside={true}
+            closeOnHardwareBackPress={false}
+            showConfirmButton={true}
+            showCancelButton={true}
+            confirmText="Sure!"
+            cancelText='Cancel'
+            confirmButtonColor="#DD6B55"
+            onConfirmPressed={() => {
+              handleInvalidConfirm()
+            }}
+            onCancelPressed={() => {
+              setInvalidAlert(false);
+            }}
+          />
+
+          <AwesomeAlert
+            show={isErrorAlert}
+            showProgress={false}
+            title="Oops..."
+            message="Something went wrong. Try again at a better time!"
+            closeOnTouchOutside={true}
+            closeOnHardwareBackPress={false}
+            showConfirmButton={true}
+            showCancelButton={true}
+            confirmText="Ok"
+            confirmButtonColor="#DD6B55"
+            onConfirmPressed={() => {
+              setErrorAlert(false)
+            }}
+          />
         </SafeAreaView>
       </View>
+
     </LinearGradient>
   );
 };
@@ -232,7 +314,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     flexDirection: "row",
     alignSelf: 'center'
-    
+
   },
 });
 

@@ -17,6 +17,7 @@
     "axios": "^0.26.1",
     "react": "17.0.2",
     "react-native": "0.66.3",
+    "react-native-awesome-alerts": "^1.5.2",
     "react-native-css-gradient": "^0.4.0",
     "react-native-google-speech-to-text": "^1.0.4",
     "react-native-linear-gradient": "^2.5.6",

@@ -31,7 +31,7 @@ const App = () => {
               shadowOpacity: 0,
             },
             headerTitle: () => (
-              <Image source={require("./assets/logo2.png")} style= {{width: 400, height: 125, alignSelf: 'center'}} />
+              <Image source={require("./assets/logo2.png")} style={{ width: 400, height: 125, alignSelf: 'center' }} />
             ),
             headerTransparent: true,
             headerShadowVisible: false,
@@ -83,7 +83,7 @@ const App = () => {
 
             headerBackVisible: false,
             headerTitle: () => (
-              <Image source={require("./assets/logo2.png")} style={{ width: 400, height: 125, alignSelf: 'flex-start'}} />
+              <Image source={require("./assets/logo2.png")} style={{ width: 400, height: 125, alignSelf: 'flex-start' }} />
             ),
 
             headerStyle: {
