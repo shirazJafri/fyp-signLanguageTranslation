@@ -78,7 +78,7 @@ const Audio_record = ({ navigation }) => {
     if (transcription) {
       setTranslateLoading(true)
 
-      axios.post('http://fa70-182-255-48-81.ngrok.io/api/fixSentence', {
+      axios.post('http://398e-182-255-48-81.ngrok.io/api/fixSentence', {
         sentence: transcription
       })
 
@@ -146,7 +146,7 @@ const Audio_record = ({ navigation }) => {
       <View style={styles.container}>
         <SafeAreaView>
           <Text style={styles.headingText}></Text>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{
               alignSelf: 'flex-end',
               marginTop: 24,
@@ -165,7 +165,7 @@ const Audio_record = ({ navigation }) => {
             }
           >
             <View style={styles.iconContainer}><Icon name="info" size={14} color='#008080' /></View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <View style={styles.textInputStyle}>
             <TextInput
               value={result}
@@ -205,7 +205,7 @@ const Audio_record = ({ navigation }) => {
             <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20, alignSelf: 'center' }}>Clear</Text>
           </TouchableOpacity> */}
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{
               alignSelf: 'center',
               marginTop: 24,
@@ -222,8 +222,49 @@ const Audio_record = ({ navigation }) => {
             }
           >
             <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20, alignSelf: 'center' }}>Translate</Text>
+          </TouchableOpacity> */}
+          <TouchableOpacity
+          style={{
+            alignSelf: 'center',
+            marginTop: 24,
+            justifyContent: 'center',
+            borderColor: 'white',
+            width: 120,
+            height: 50,
+            backgroundColor: '#008080',
+            padding: 8,
+            marginBottom: 200,
+            borderRadius: 50
+          }}
+          onPress={
+            () => translate(result)
+          }
+        >
+          <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20, alignSelf: 'center' }}>Translate</Text>
           </TouchableOpacity>
-          {isTranslateLoading == true && <ActivityIndicator style={{ padding: 20, width: 400, height: 200, alignSelf: 'center' }} size="large" color="#008080" />}
+
+          <TouchableOpacity
+          style={{
+            alignSelf: 'flex-end',
+            marginTop: 35,
+            justifyContent: 'center',
+            borderColor: 'white',
+            width: 32,
+            height: 32,
+            backgroundColor: 'white',
+            borderRadius: 50,
+            borderWidth: 1
+          }}
+          onPress={
+            () => navigation.navigate('Help')
+          }
+        >
+
+         <View style={styles.iconContainer}><Icon name="question" size={14} color = '#008080' /></View>   
+          </TouchableOpacity>
+
+          {isTranslateLoading == true && <ActivityIndicator style={{ width: 100, height: 100, alignSelf: 'center' }} size="large" color="#008080" />}
+
 
           <AwesomeAlert
             show={isEmptyAlert}
@@ -307,7 +348,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 2,
     elevation: 2,
-    shadowOpacity: 0.4
+    shadowOpacity: 0.4,
+    marginTop: 30
   },
   iconContainer: {
     alignItems: 'flex-start',

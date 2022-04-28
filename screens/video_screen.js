@@ -84,7 +84,7 @@ const Video_screen = ({ navigation, route }) => {
         style={styles.video} resizeMode="cover"
         onLoadStart={() => setVideoLoading(true)}
         onReadyForDisplay = {() => setVideoLoading(false)}
-        onEnd={() => navigation.navigate('Audio_Record')}
+        // onEnd={() => navigation.navigate('Audio_Record')}
       />
       {/* <Text>{route.params.res}</Text> */}
     </View>)
