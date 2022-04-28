@@ -78,7 +78,7 @@ const Audio_record = ({ navigation }) => {
     if (transcription) {
       setTranslateLoading(true)
 
-      axios.post('http://398e-182-255-48-81.ngrok.io/api/fixSentence', {
+      axios.post('http://1ff9-182-255-48-81.ngrok.io/api/fixSentence', {
         sentence: transcription
       })
 
